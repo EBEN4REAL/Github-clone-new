@@ -39,12 +39,6 @@ document.querySelector('.octicon-three-bars').addEventListener('click' , e => {
         document.querySelector('.nav_menu_wrapper').classList.add('show-mobile-nav-list')
     }
 })
-// document.querySelector('.float_emoji_html').addEventListener('mouseover', () => {
-
-// })
-// document.querySelector('.float_emoji_html').addEventListener('mouseout', (e) => {
-//     e.target.width = '100%'
-// })
 const baseUrl = "https://api.github.com/graphql";
 
 const headers = {
@@ -123,7 +117,6 @@ fetch(baseUrl, {
 })
 .then(res => res.json())
 .then(res => {
-    console.log(res.data)
     document.querySelector('.emoji_html').innerHTML = res.data.viewer.status.emojiHTML
     document.querySelector('.status-txt').innerHTML = res.data.viewer.status.message
     document.querySelector('.app_page_loader').style.display = 'none'
@@ -143,7 +136,7 @@ fetch(baseUrl, {
     })
     document.querySelector('.dp_img').src = avatarUrl
     let publicReposCount = res.data.viewer.repositories.nodes.filter(el => !el.isPrivate).length
-    // document.querySelector('.publicReposCount').textContent = publicReposCount;
+    document.querySelector('.publicReposCount').textContent = publicReposCount;
     document.querySelector('.username').textContent = res.data.viewer.login;
     Array.from(document.querySelectorAll('.username')).forEach(el => {
         el.textContent = res.data.viewer.login;
