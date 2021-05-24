@@ -210,6 +210,60 @@ window.onclick = (event) => {
         })
     }
 }
+// function detectClick() {
+//     document.addEventListener("click", (evt) => {
+//         const dropDownWrapperObj = new Object()
+//         const dropDownWrapper = dropDownWrapperObj.dropDownContent
+//         const flyoutElement = dropDownWrapper
+//         let targetElement = evt.target; 
+    
+//         do {
+//             if (targetElement == flyoutElement) {
+//                 flyoutElement.children[1].classList.add('show')
+//                 return;
+//             }
+//             targetElement = targetElement.parentNode;
+           
+//         } while (targetElement);
+    
+        
+//         Array.from(document.querySelectorAll('.dropdown-content')).forEach(el => {
+//             console.log(el)
+//             Object.prototype.dropDownContent = el
+//             el.classList.remove('show')
+//         })
+//     });
+// }
+// const dropDowns = document.querySelectorAll('.dropdown')
+// dropDowns.forEach(dD => {
+//     Object.prototype.dropDownContent = dD
+//     dD.addEventListener('click', () => {
+//         detectClick()
+//     })
+// })
+// document.addEventListener("click", (evt) => {
+    // const dropDowns = document.querySelectorAll('.dropdown')
+    // dropDowns.forEach(dD => {
+    //     Object.prototype.dropDownContent = dD
+    //     detectClick()
+    // })
+    // const flyoutElement1 = document.querySelector("#fst-drop-down")
+    // const flyoutElement2 = document.querySelector("#sec-drop-down")
+    // let targetElement = evt.target; 
+
+    // do {
+    //     if (targetElement == flyoutElement1) {
+    //         return;
+    //     }
+    //     targetElement = targetElement.parentNode;
+       
+    // } while (targetElement);
+
+   
+    //  Array.from(document.querySelectorAll('.dropdown-content')).forEach(el => {
+    //     el.classList.remove('show')
+    // })
+// });
 window.addEventListener("scroll", (e) => {
     if (window.scrollY >= 370) {
         document.querySelector('.repo_logo').style.visibility = 'visible';
