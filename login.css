@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 :root {
     --color-text-primary: #24292e;
     --color-border-secondary: #ebedef;
@@ -21,6 +20,7 @@
     margin-bottom: 7px;
     font-weight: 400;
     text-align: left;
+    font-family: 'Open Sans', sans-serif;
 }
 .text-center {
     text-align: center;
