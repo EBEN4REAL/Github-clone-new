@@ -1,77 +1,9 @@
 
-document.getElementById('search_field').addEventListener('focus' , e => {
-    e.target.style.color = 'black'
-    document.querySelector('.search_drop_down').style.display = 'block';
-    document.querySelector('.input_container').style.width = '500px';
-    document.querySelector('#search_field').style.width = '500px';
-    document.querySelector('.input_container').style.background = '#f9f9f9';
-    document.querySelector('.input_container').style.borderRadius = '0px';
-    document.querySelector('.input_container').style.borderTopLeftRadius = '5px';
-    document.querySelector('.input_container').style.borderTopRightRadius = '5px';
-    document.querySelector('.input_container').style.borderBottomRightRadius = 'none';
-    document.querySelector('.input_container').style.borderBottomLeftRadius = 'none';
-    document.querySelector('.slash_icon').style.display = 'none'
-})
-document.getElementById('search_field').addEventListener('blur' , () => {
-    document.querySelector('.search_drop_down').style.display = 'none';
-    document.querySelector('.input_container').style.width = '250px';
-    document.querySelector('#search_field').style.width = '250px';
-    document.querySelector('.input_container').style.background = 'transparent';
-    document.querySelector('.input_container').style.borderRadius = '5px';
-    document.querySelector('.input_container').style.borderTopLeftRadius = '5px';
-    document.querySelector('.input_container').style.borderTopRightRadius = '5px';
-    document.querySelector('.input_container').style.borderBottomRightRadius = '5px';
-    document.querySelector('.input_container').style.borderBottomLeftRadius = '5px';
-    document.querySelector('.slash_icon').style.display = 'inline-block'
-})
-document.querySelector('.search_list').addEventListener('mouseover', () => {
-    document.querySelector('.jump_to_label').style.display = 'block'
-    document.querySelector('.drop_down_repo_link').style.color = 'white'
-})
-document.querySelector('.search_list').addEventListener('mouseout', () => {
-    document.querySelector('.jump_to_label').style.display = 'none'
-    document.querySelector('.drop_down_repo_link').style.color = 'black'
-})
-document.querySelector('.octicon-three-bars').addEventListener('click' , e => {
-    if(document.querySelector('.nav_menu_wrapper').classList.contains('show-mobile-nav-list')) {
-        document.querySelector('.nav_menu_wrapper').classList.remove('show-mobile-nav-list')
-    }else {
-        document.querySelector('.nav_menu_wrapper').classList.add('show-mobile-nav-list')
-    }
-})
 const baseUrl = "https://api.github.com/graphql";
 
 const headers = {
     "Content-Type": "application/json",
     authorization: `token ${token} `,
-}
-
-
-const timeSince = (date) => {
-    var seconds = Math.floor((new Date() - date) / 1000);
-
-    var interval = seconds / 31536000;
-
-    if (interval > 1) {
-        return Math.floor(interval) + (Math.floor(interval) == 1 ? " year ago" : " years ago");
-    }
-    interval = seconds / 2592000;
-    if (interval > 1) {
-        return Math.floor(interval) + (Math.floor(interval) == 1 ? " month ago" : " months ago");
-    }
-    interval = seconds / 86400;
-    if (interval > 1) {
-        return Math.floor(interval) + (Math.floor(interval) == 1 ? " day ago" : " days ago");
-    }
-    interval = seconds / 3600;
-    if (interval > 1) {
-        return Math.floor(interval) + (Math.floor(interval) == 1 ? " hour ago" : " hours ago");
-    }
-    interval = seconds / 60;
-    if (interval > 1) {
-        return Math.floor(interval) + (Math.floor(interval) == 1 ? " minute ago" : " minutes ago");
-    }
-    return Math.floor(seconds) + (Math.floor(interval) == 1 ? " second ago" : " seconds ago");
 }
 
 fetch(baseUrl, {
@@ -82,51 +14,68 @@ fetch(baseUrl, {
     referrerPolicy: "no-referrer",
     body: JSON.stringify({
         query: `
-            query {
-                viewer {
-                    avatarUrl
-                    bio
-                    name
-                    login
-                    status {
-                        emojiHTML
-                        message
-                    }
-                    repositories(first: 20,orderBy: {field: UPDATED_AT, direction: DESC}) {
-                            nodes {
-                            name
-                            url
-                            updatedAt
-                            isPrivate
-                            primaryLanguage {
-                                name
-                                color
-                            }
-                            stargazerCount
-                            forkCount
-                            descriptionHTML
-                            description
-                        }
-                        totalCount
-                    }
+        query { 
+            user(login: "Eben4real") {
+                name
+                email
+                company
+                bio
+                location
+                login
+                avatarUrl
+                followers{
+                    totalCount
                 }
-            } 
+                following {
+                    totalCount
+                }
+                status {
+                    emojiHTML
+                    message
+                }
+                starredRepositories {
+                    totalCount
+                }
+                repositories(first: 20, isFork: false, orderBy: {field: UPDATED_AT, direction: DESC}) {
+                    nodes {
+                        name
+                        url
+                        updatedAt
+                        isPrivate
+                        primaryLanguage {
+                            name
+                            color
+                        }
+                        stargazerCount
+                        forkCount
+                        descriptionHTML
+                        description
+                    }
+                    totalCount
+                }
+            }
+          }
              
         `
     })
 })
 .then(res => res.json())
 .then(res => {
-    document.querySelector('.emoji_html').innerHTML = res.data.viewer.status.emojiHTML
-    document.querySelector('.status-txt').innerHTML = res.data.viewer.status.message
+    document.querySelector('.followers').innerHTML = res.data.user.followers.totalCount
+    document.querySelector('.location').innerHTML = res.data.user.location
+    document.querySelector('.following').innerHTML = res.data.user.following.totalCount
+    document.querySelector('.stars').innerHTML = res.data.user.starredRepositories.totalCount
+    document.querySelector('.emoji_html').innerHTML = res.data.user.status.emojiHTML
+    document.querySelector('.email').innerHTML = res.data.user.email
+    document.querySelector('.status-txt').innerHTML = res.data.user.status.message
     document.querySelector('.app_page_loader').style.display = 'none'
     document.querySelector('.second_row').style.display = 'block'
-    let avatarUrl = res.data.viewer.avatarUrl
-    let bio =  res.data.viewer.bio
-    document.querySelector('.profile_name').textContent =  res.data.viewer.name
-    document.querySelector('.totalCount').textContent =  res.data.viewer.repositories.nodes.length
+    let avatarUrl = res.data.user.avatarUrl
+    let bio =  res.data.user.bio
+    document.querySelector('.profile_name').textContent =  res.data.user.name
+    document.querySelector('.totalCount').textContent =  res.data.user.repositories.nodes.length
     Array.from(document.querySelectorAll('.name')).forEach(el => {
-        el.innerHTML = res.data.viewer.name
+        el.innerHTML = res.data.user.name
     })
     Array.from(document.querySelectorAll('.bio')).forEach(el => {
         el.textContent = bio
@@ -135,16 +84,15 @@ fetch(baseUrl, {
         el.src = avatarUrl
     })
     document.querySelector('.dp_img').src = avatarUrl
-    let publicReposCount = res.data.viewer.repositories.nodes.filter(el => !el.isPrivate).length
+    let publicReposCount = res.data.user.repositories.nodes.filter(el => !el.isPrivate).length
     document.querySelector('.publicReposCount').textContent = publicReposCount;
-    document.querySelector('.username').textContent = res.data.viewer.login;
+    document.querySelector('.username').textContent = res.data.user.login;
     Array.from(document.querySelectorAll('.username')).forEach(el => {
-        el.textContent = res.data.viewer.login;
+        el.textContent = res.data.user.login;
     })
-    document.querySelector('.profile_uname').textContent = res.data.viewer.login;
+    document.querySelector('.profile_uname').textContent = res.data.user.login;
     
-    let count = 0
-    res.data.viewer.repositories.nodes.forEach(el => {
+    res.data.user.repositories.nodes.forEach(el => {
         let child = `
         <div class="repo_list_wrapper">
             <div class="repo_list">
@@ -189,7 +137,37 @@ fetch(baseUrl, {
    
 })
 .catch(err => {
+
 })
+
+
+const timeSince = (date) => {
+    var seconds = Math.floor((new Date() - date) / 1000);
+
+    var interval = seconds / 31536000;
+
+    if (interval > 1) {
+        return Math.floor(interval) + (Math.floor(interval) == 1 ? " year ago" : " years ago");
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+        return Math.floor(interval) + (Math.floor(interval) == 1 ? " month ago" : " months ago");
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+        return Math.floor(interval) + (Math.floor(interval) == 1 ? " day ago" : " days ago");
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+        return Math.floor(interval) + (Math.floor(interval) == 1 ? " hour ago" : " hours ago");
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+        return Math.floor(interval) + (Math.floor(interval) == 1 ? " minute ago" : " minutes ago");
+    }
+    return Math.floor(seconds) + (Math.floor(interval) == 1 ? " second ago" : " seconds ago");
+}
+
 
 Array.from(document.querySelectorAll('.dropbtn')).forEach(el => {
     el.addEventListener('click', (e) => {
@@ -272,3 +250,44 @@ window.addEventListener("scroll", (e) => {
     }
 });
 
+
+document.getElementById('search_field').addEventListener('focus' , e => {
+    e.target.style.color = 'black'
+    document.querySelector('.search_drop_down').style.display = 'block';
+    document.querySelector('.input_container').style.width = '500px';
+    document.querySelector('#search_field').style.width = '500px';
+    document.querySelector('.input_container').style.background = '#f9f9f9';
+    document.querySelector('.input_container').style.borderRadius = '0px';
+    document.querySelector('.input_container').style.borderTopLeftRadius = '5px';
+    document.querySelector('.input_container').style.borderTopRightRadius = '5px';
+    document.querySelector('.input_container').style.borderBottomRightRadius = 'none';
+    document.querySelector('.input_container').style.borderBottomLeftRadius = 'none';
+    document.querySelector('.slash_icon').style.display = 'none'
+})
+document.getElementById('search_field').addEventListener('blur' , () => {
+    document.querySelector('.search_drop_down').style.display = 'none';
+    document.querySelector('.input_container').style.width = '250px';
+    document.querySelector('#search_field').style.width = '250px';
+    document.querySelector('.input_container').style.background = 'transparent';
+    document.querySelector('.input_container').style.borderRadius = '5px';
+    document.querySelector('.input_container').style.borderTopLeftRadius = '5px';
+    document.querySelector('.input_container').style.borderTopRightRadius = '5px';
+    document.querySelector('.input_container').style.borderBottomRightRadius = '5px';
+    document.querySelector('.input_container').style.borderBottomLeftRadius = '5px';
+    document.querySelector('.slash_icon').style.display = 'inline-block'
+})
+document.querySelector('.search_list').addEventListener('mouseover', () => {
+    document.querySelector('.jump_to_label').style.display = 'block'
+    document.querySelector('.drop_down_repo_link').style.color = 'white'
+})
+document.querySelector('.search_list').addEventListener('mouseout', () => {
+    document.querySelector('.jump_to_label').style.display = 'none'
+    document.querySelector('.drop_down_repo_link').style.color = 'black'
+})
+document.querySelector('.octicon-three-bars').addEventListener('click' , e => {
+    if(document.querySelector('.nav_menu_wrapper').classList.contains('show-mobile-nav-list')) {
+        document.querySelector('.nav_menu_wrapper').classList.remove('show-mobile-nav-list')
+    }else {
+        document.querySelector('.nav_menu_wrapper').classList.add('show-mobile-nav-list')
+    }
+})
