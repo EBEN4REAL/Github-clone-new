@@ -116,3 +116,6 @@
     box-shadow: var(--color-btn-primary-shadow),var(--color-btn-primary-inset-shadow);
 }
 
+input[type=text]:focus{
+  box-shadow: 0 0 0 3px rgb(19, 106, 205 , 20%) !important;
+}
