@@ -1,4 +1,4 @@
-# github-clone  Frontend Challenge
+# Github-clone  Frontend Challenge
 
 Live Demo:  https://ebzzzzy-github-clone.netlify.app/
 
