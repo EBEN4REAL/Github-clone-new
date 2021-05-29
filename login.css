@@ -20,6 +20,10 @@
     margin: 0 auto;
     margin-top: 50px;
 }
+
+.smiley {
+    color: rgb(106, 115, 125)
+}
 .auth-form label {
     display: block;
     margin-bottom: 7px;
