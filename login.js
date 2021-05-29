@@ -53,7 +53,7 @@ const  getUser = () =>  {
                     starredRepositories {
                         totalCount
                     }
-                    repositories(first: 20, isFork: false, orderBy: {field: UPDATED_AT, direction: DESC}) {
+                    repositories(first: 20, orderBy: {field: UPDATED_AT, direction: DESC}) {
                         nodes {
                             name
                             url
