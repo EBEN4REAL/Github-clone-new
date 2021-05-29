@@ -450,6 +450,10 @@ ul>li {
     color: var(--color-white);
     position: relative;
 }
+.nav-status-emoji {
+    position: absolute;
+    top: 7px;
+}
 .repo_search_container  svg {
     fill: var(--color-svg-white);
     position: absolute;
@@ -540,6 +544,9 @@ ul>li {
     position: relative;
     display: flex;
     align-items: center;
+}
+.position-relative {
+    position: relative;
 }
 .unread_count{
     position: absolute;
@@ -658,7 +665,10 @@ ul>li {
     z-index: 999;
     border-radius: 5px;
   }
-  
+  .nav-status-text{
+    margin-left: 23px;
+    font-size: 13px;
+}
   .dropdown-content a {
     color: black;
     padding: 7px 7px;
@@ -1030,6 +1040,15 @@ ul>li {
         margin-top: 32px;
     }
 }
+.status-container {
+    display: block !important;
+    border: 1px solid var(--lightgrey);
+    padding: 5px;
+    width: 85%;
+    margin: 0 auto;
+    border-radius: 5px;
+    margin-top: 12px;
+}
 @media screen and (max-width: 1024px) {
     .status_div {
         display: block !important;
@@ -1055,8 +1074,10 @@ ul>li {
     }
     .status_text {
         font-size: 14px;
-        margin-left: 15px;
+        margin-left: 17px;
     }
+    
+    
     .status_parent_svg{
         position: absolute;
         left: 5px;
