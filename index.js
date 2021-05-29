@@ -1,7 +1,4 @@
 
-console.log(JSON.parse(localStorage.getItem('data')))
-
-
 const timeAgo = (date) => {
     var seconds = Math.floor((new Date() - date) / 1000);
 
@@ -30,15 +27,15 @@ const timeAgo = (date) => {
 }
 
 const fetchRepos = (data) => {
+    if(data.user.status) {
+        document.querySelector('.emoji_html').innerHTML = data.user.status.emojiHTML 
+        document.querySelector('.status-txt').innerHTML = data.user.status.message
+    }
     document.querySelector('.followers').innerHTML = data.user.followers.totalCount
     document.querySelector('.location').innerHTML = data.user.location
     document.querySelector('.following').innerHTML = data.user.following.totalCount
     document.querySelector('.stars').innerHTML = data.user.starredRepositories.totalCount
-    if(data.user.status) {
-        document.querySelector('.emoji_html').innerHTML = data.user.status.emojiHTML 
-    }
     document.querySelector('.email').innerHTML = data.user.email
-    document.querySelector('.status-txt').innerHTML = data.user.status ? data.user.status.message : ''
     document.querySelector('.app_page_loader').style.display = 'none'
     document.querySelector('.second_row').style.display = 'block'
     let avatarUrl = data.user.avatarUrl
@@ -113,7 +110,6 @@ fetchRepos(JSON.parse(localStorage.getItem('data')))
 
 
 // Dropdowns Section 
-
 Array.from(document.querySelectorAll('.dropbtn')).forEach(el => {
     el.addEventListener('click', (e) => {
         el.parentNode.children[1].classList.toggle('show')
