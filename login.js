@@ -83,7 +83,7 @@ const  getUser = () =>  {
             if (data.user) {
                 localStorage.setItem('data', JSON.stringify(data))
                 inputField.value = ''
-                window.location.href = '/index.html'
+                window.location.href = '/repos.html'
             } else {
                 showToast('No record found for this user')
             }
