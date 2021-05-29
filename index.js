@@ -108,28 +108,27 @@ const fetchRepos = (data) => {
 fetchRepos(JSON.parse(localStorage.getItem('data')))
 
 
-
 // Dropdowns Section 
-Array.from(document.querySelectorAll('.dropbtn')).forEach(el => {
-    el.addEventListener('click', (e) => {
-        el.parentNode.children[1].classList.toggle('show')
-    })
-})
+// Array.from(document.querySelectorAll('.dropbtn')).forEach(el => {
+//     el.addEventListener('click', (e) => {
+//         el.parentNode.children[1].classList.toggle('show')
+//     })
+// })
 
-window.onclick = (event) => {
-    if (!event.target.matches('.dropbtn')) {
-        Array.from(document.querySelectorAll('.dropbtn')).forEach(el => {
-            el.addEventListener('click', (e) => {
-                el.parentNode.children[1].classList.toggle('show')
-                if (el.parentNode.children[1].classList.contains('show')) {
-                    el.parentNode.children[1].classList.remove('show');
-                }else {
-                    el.parentNode.children[1].classList.add('show');
-                }
-            })
-        })
-    }
-}
+// window.onclick = (event) => {
+//     if (!event.target.matches('.dropbtn')) {
+//         Array.from(document.querySelectorAll('.dropbtn')).forEach(el => {
+//             el.addEventListener('click', (e) => {
+//                 el.parentNode.children[1].classList.toggle('show')
+//                 if (el.parentNode.children[1].classList.contains('show')) {
+//                     el.parentNode.children[1].classList.remove('show');
+//                 }else {
+//                     el.parentNode.children[1].classList.add('show');
+//                 }
+//             })
+//         })
+//     }
+// }
 
 window.addEventListener("scroll", (e) => {
     if (window.scrollY >= 370) {
@@ -179,4 +178,13 @@ document.querySelector('.octicon-three-bars').addEventListener('click' , e => {
     }else {
         document.querySelector('.nav_menu_wrapper').classList.add('show-mobile-nav-list')
     }
+})
+
+// Closing dropdowns on click outside 
+const app = document.querySelector('.app')
+const allDetails = document.querySelectorAll('details')
+app.addEventListener('click', () => {
+    allDetails.forEach((detail) => {
+        detail.open = false
+    })
 })
