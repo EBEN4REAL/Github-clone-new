@@ -304,7 +304,7 @@ footer {
     align-items: center;
     justify-content: space-between;
     padding: 40px 0px;
-    margin-top: 40px;
+    margin-top: 80px;
     border-top: 1px solid var(--repo-border);
     color: var(--primary-color);
     margin: 0 auto;
@@ -493,7 +493,16 @@ ul>li {
     font-weight: 600;
     color: var(--color-text-link);
 }
-.repo_list_wrapper .repo_list .star_repo {
+.mt-3 {
+    margin-top: 16px;
+}
+.mr-3 {
+    margin-right: 10px;
+}
+.back-button a {
+    text-decoration: none;
+}
+.star_repo {
     background: rgb(250, 251, 252);
     border-radius: 5px;
     padding: 5px 20px 5px 20px;
