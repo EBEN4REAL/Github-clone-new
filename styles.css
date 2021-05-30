@@ -298,7 +298,10 @@ hr{
     fill: var(--primary-color);
 }
 
-
+.star_repo:hover .back-arrow {
+    transform: translateX(-2px);
+    transition: all .5s;
+}
 footer {
     display: flex;
     align-items: center;
