@@ -13,6 +13,7 @@
     --color-white: #fff;
     --primary-color: #0366d6;
     --green-bg: #2ea44f;
+    
 }
 
 .auth-form{
@@ -56,7 +57,9 @@
     /* Safari */
     animation: spin 2s linear infinite;
 }
-
+.form-control:-webkit-autofill:focus {
+    box-shadow: inset 0 0 0 32px var(--color-input-bg),var(--color-state-focus-shadow)!important;
+}
 .loader.form {
     width: 15px;
     height: 15px;
